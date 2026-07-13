@@ -4,9 +4,9 @@ from scipy import stats
 from datetime import datetime
 import os
 
-df=pd.read_pickle("D:/tasks/final_homework/data.pkl")
+df=pd.read_pickle("D:/tasks/final/data.pkl")
 
-def generate_data_quality_report(df, output_path='D:/tasks/final_homework/outputs/data_quality_report.csv'):
+def generate_data_quality_report(df, output_path='D:/tasks/final/outputs/data_quality_report.csv'):
     """
     生成数据质量报告，包含缺失率、异常值统计等
 
@@ -243,6 +243,7 @@ def extract_time_features(df):
     # 5. 是否高峰时段
     # 定义高峰时段：工作日早高峰 7:00-9:00，晚高峰 17:00-19:00
     # 周末高峰时段：10:00-12:00, 15:00-18:00
+
     def is_peak_hour(row):
         hour = row['pickup_hour']
         is_weekend = row['is_weekend']
@@ -294,6 +295,7 @@ def operating_m1():
     print("\n" + "=" * 50)
     print("开始数据清洗...")
     df_cleaned = data_cleaning_strategy(df)
+    df_cleaned.to_pickle("D:/tasks/final/data_clean.pkl")
 
     # 清洗后验证
     print("\n" + "=" * 50)
@@ -303,4 +305,4 @@ def operating_m1():
     print(f"清洗后数据预览:\n{df_cleaned.head()}")
 
     #生成提取时间特征和衍生特征的csv文件
-    derived_character(extract_time_features(df)).to_csv("D:/tasks/final_homework/outputs/derive.csv")
+    derived_character(extract_time_features(df)).to_csv("D:/tasks/final/outputs/derive.csv")
